@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Perfect Decorator | Premium Balloon Styling</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-pink: #ff4d8d;
+            --dark-charcoal: #121212;
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        html { scroll-behavior: smooth; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; color: #333; line-height: 1.6; overflow-x: hidden; background-color: #fff; }
+
+        .balloon-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none; }
+        .balloon-anim { position: absolute; bottom: -100px; border-radius: 50%; opacity: 0.3; animation: floatUp 12s infinite linear; }
+        @keyframes floatUp { 0% { transform: translateY(0); opacity: 0; } 10% { opacity: 0.4; } 100% { transform: translateY(-120vh); opacity: 0; } }
+
+        nav { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 15px 8%; background: white; position: sticky; 
+            top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
+        }
+        .logo { font-family: 'Montserrat', sans-serif; font-size: 1.4rem; color: var(--primary-pink); font-weight: bold; text-decoration: none; }
+        .nav-links { display: flex; list-style: none; gap: 25px; align-items: center; }
+        .nav-links a { text-decoration: none; color: #333; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; transition: 0.3s; }
+        .nav-links a:hover { color: var(--primary-pink); }
+
+        .section-padding { padding: 100px 8%; }
+        .section-title { text-align: center; margin-bottom: 60px; }
+        .section-title h2 { font-size: 3rem; font-family: 'Montserrat'; text-transform: uppercase; }
+        .section-title h2 span { color: var(--primary-pink); }
+
+        .hero { display: flex; align-items: center; min-height: 90vh; gap: 50px; }
+        .hero-text { flex: 1.2; }
+        .hero-text h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 25px; font-family: 'Montserrat'; }
+        .hero-text h1 span { color: var(--primary-pink); }
+        .hero-image img { width: 100%; max-width: 550px; border-radius: 30px; box-shadow: var(--card-shadow); border: 12px solid white; transform: rotate(1deg); }
+        
+        .btn { padding: 18px 35px; border-radius: 10px; text-decoration: none; font-weight: 700; display: inline-block; transition: 0.3s; border: none; cursor: pointer; text-transform: uppercase; margin-top: 15px; }
+        .btn-pink { background: var(--primary-pink); color: white; box-shadow: 0 10px 20px rgba(255, 77, 141, 0.3); }
+        .btn-outline { border: 2px solid var(--primary-pink); color: var(--primary-pink); background: white; margin-left: 15px; }
+        .btn:hover { transform: translateY(-5px); filter: brightness(1.1); }
+
+        .trust-badges { display: flex; gap: 25px; margin-top: 40px; flex-wrap: wrap; }
+        .badge { display: flex; align-items: center; font-weight: 700; color: #444; font-size: 0.9rem; }
+        .badge i { color: #28a745; margin-right: 8px; font-size: 1.2rem; }
+
+        .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .about-text p { font-size: 1.1rem; color: #666; margin-bottom: 20px; }
+        .about-features { list-style: none; }
+        .about-features li { margin-bottom: 15px; font-weight: 600; display: flex; align-items: center; }
+        .about-features i { color: var(--primary-pink); margin-right: 15px; }
+
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .service-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: var(--card-shadow); border: 1px solid #eee; }
+        .service-img { height: 350px; width: 100%; object-fit: cover; }
+        .service-info { padding: 30px; }
+        .service-info h3 { color: var(--primary-pink); font-size: 1.5rem; margin-bottom: 15px; font-family: 'Montserrat'; }
+
+        .packages-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .package-card { background: white; padding: 40px 30px; border-radius: 25px; text-align: center; border: 2px solid #f0f0f0; transition: 0.3s; }
+        .package-card.popular { border-color: var(--primary-pink); position: relative; }
+        .popular-label { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--primary-pink); color: white; padding: 5px 20px; border-radius: 20px; font-size: 0.8rem; font-weight: bold; }
+        .price { font-size: 2.2rem; font-weight: 700; color: var(--primary-pink); margin: 20px 0; }
+        .package-list { list-style: none; margin-bottom: 30px; color: #666; text-align: left; }
+        .package-list li { margin-bottom: 12px; border-bottom: 1px solid #f9f9f9; padding-bottom: 5px; }
+        .package-list i { color: var(--primary-pink); margin-right: 10px; }
+
+        footer { background: var(--dark-charcoal); color: white; padding: 80px 8% 30px; }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 50px; }
+        .footer-logo { font-size: 1.8rem; font-weight: bold; color: white; text-decoration: none; font-family: 'Montserrat'; }
+        .footer-logo span { color: var(--primary-pink); }
+        .footer-heading { font-size: 1.2rem; font-weight: 600; margin-bottom: 30px; color: var(--primary-pink); }
+        .footer-links { list-style: none; }
+        .footer-links li { margin-bottom: 15px; }
+        .footer-links a { color: #bbb; text-decoration: none; transition: 0.3s; }
+        .footer-links a:hover { color: white; padding-left: 8px; }
+        .contact-list { list-style: none; color: #bbb; }
+        .contact-list li { margin-bottom: 20px; display: flex; gap: 15px; }
+        .contact-list i { color: var(--primary-pink); font-size: 1.2rem; }
+        .footer-bottom { border-top: 1px solid #333; margin-top: 50px; padding-top: 30px; text-align: center; color: #777; font-size: 0.9rem; }
+
+        @media (max-width: 992px) {
+            .hero, .about-content { flex-direction: column; text-align: center; }
+            .hero-image { order: -1; }
+            .nav-links { display: none; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="balloon-container" id="balloonBox"></div>
+
+    <nav>
+        <a href="#home" class="logo">THE PERFECT DECORATOR</a>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#packages">Packages</a></li>
+            <li><a href="#inquiry">Contact</a></li>
+            <li><button onclick="sendWhatsApp('Consultation')" class="btn-pink btn" style="padding: 10px 20px; font-size: 0.8rem; margin:0;">Book Consultation</button></li>
+        </ul>
+    </nav>
+
+    <section class="section-padding hero" id="home">
+        <div class="hero-text">
+            <h1>Turning Moments Into <span>Memories</span></h1>
+            <p>India's leading professional balloon decorators. We transform spaces with artistry, luxury, and 100% punctuality.</p>
+            <div class="hero-btns">
+                <button onclick="sendWhatsApp('General Booking')" class="btn btn-pink">Book a Decoration</button>
+                <button onclick="sendWhatsApp('Free Consultation')" class="btn btn-outline">Free Consultation</button>
+            </div>
+            <div class="trust-badges">
+                <div class="badge"><i class="fas fa-check-circle"></i> 100+ Happy Celebrations</div>
+                <div class="badge"><i class="fas fa-star"></i> 5-Star Satisfaction</div>
+                <div class="badge"><i class="fas fa-clock"></i> On-Time Setup</div>
+            </div>
+        </div>
+        <div class="hero-image">
+            <img src="https://i.ibb.co/NdkTrC4X/Whats-App-Image-2026-01-17-at-3-59-27-PM.jpg" alt="The Perfect Decorator Main Image">
+        </div>
+    </section>
+
+    <section id="about" class="section-padding" style="background: #fafafa;">
+        <div class="section-title">
+            <h2>About <span>Our Expertise</span></h2>
+        </div>
+        <div class="about-content">
+            <div class="about-text">
+                <p><strong>The Perfect Decorator</strong> started with a simple vision: to make high-end event decoration accessible and professional. Over the years, we have mastered the art of "Organic Balloon Styling"—a technique that uses different sizes and textures to create a natural, luxurious look.</p>
+                <p>Our team consists of trained artists who understand color theory and space management, ensuring your venue looks like a dream.</p>
+                <ul class="about-features">
+                    <li><i class="fas fa-magic"></i> Bespoke Custom Designs</li>
+                    <li><i class="fas fa-leaf"></i> Eco-Friendly Latex Balloons</li>
+                    <li><i class="fas fa-stopwatch"></i> Rapid 2-Hour Express Setup</li>
+                </ul>
+            </div>
+            <div>
+                <img src="https://i.ibb.co/1fNSxjCZ/b3f37d09-1e9f-4bc7-b821-945d9b24da39.jpg" style="width:100%; border-radius:20px; box-shadow: var(--card-shadow);" alt="Portfolio Work">
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="section-padding">
+        <div class="section-title">
+            <h2>Our <span>Premium</span> Services</h2>
+        </div>
+        <div class="services-grid">
+            <div class="service-card">
+                <img src="https://i.ibb.co/1fNSxjCZ/b3f37d09-1e9f-4bc7-b821-945d9b24da39.jpg" class="service-img" alt="Luxury Setup">
+                <div class="service-info">
+                    <h3>Grand Event Styling</h3>
+                    <p>Ideal for weddings and corporate launches. We provide massive balloon walls, LED-lit arches, and floral integrations.</p>
+                </div>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1530103043960-ef38714abb15?auto=format&fit=crop&w=600" class="service-img" alt="Birthday Special">
+                <div class="service-info">
+                    <h3>Birthday Magic</h3>
+                    <p>From 1st birthdays to 50th milestones. Character themes, personalized backdrops, and balloon bouquets.</p>
+                </div>
+            </div>
+            <div class="service-card">
+                <img src="https://images.unsplash.com/photo-1525268771113-32d9e9021a97?auto=format&fit=crop&w=600" class="service-img" alt="Delicate Occasions">
+                <div class="service-info">
+                    <h3>Proposals & Baby Showers</h3>
+                    <p>Delicate pastel palettes and romantic rose-gold themes designed for intimate and emotional moments.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="packages" class="section-padding" style="background: #f4f4f4;">
+        <div class="section-title">
+            <h2>Our <span>Pricing Packages</span></h2>
+        </div>
+        <div class="packages-grid">
+            <div class="package-card">
+                <h3>Starter Decor</h3>
+                <div class="price">Basic</div>
+                <ul class="package-list">
+                    <li><i class="fas fa-check"></i> Standard Door Arch</li>
+                    <li><i class="fas fa-check"></i> 50 Helium Balloons</li>
+                    <li><i class="fas fa-check"></i> 2 Foil Star Balloons</li>
+                    <li><i class="fas fa-check"></i> 1 Setup Expert</li>
+                </ul>
+                <button onclick="sendWhatsApp('Starter Decor Package')" class="btn btn-outline" style="width:100%; margin:0;">Inquire Now</button>
+            </div>
+            <div class="package-card popular">
+                <div class="popular-label">Most Recommended</div>
+                <h3>Classic Celeb</h3>
+                <div class="price">Standard</div>
+                <ul class="package-list">
+                    <li><i class="fas fa-check"></i> Organic Backdrop Arch</li>
+                    <li><i class="fas fa-check"></i> 100 Floor Balloons</li>
+                    <li><i class="fas fa-check"></i> Personalized LED Name</li>
+                    <li><i class="fas fa-check"></i> Full Cleanup Included</li>
+                </ul>
+                <button onclick="sendWhatsApp('Classic Package')" class="btn btn-pink" style="width:100%; margin:0;">Inquire Now</button>
+            </div>
+            <div class="package-card">
+                <h3>Luxury Elite</h3>
+                <div class="price">Premium</div>
+                <ul class="package-list">
+                    <li><i class="fas fa-check"></i> Full Custom Balloon Wall</li>
+                    <li><i class="fas fa-check"></i> Artificial Floral Fusion</li>
+                    <li><i class="fas fa-check"></i> Prop & Sofa Rentals</li>
+                    <li><i class="fas fa-check"></i> Master Stylist on-site</li>
+                </ul>
+                <button onclick="sendWhatsApp('Luxury Elite Package')" class="btn btn-outline" style="width:100%; margin:0;">Inquire Now</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="inquiry" style="padding: 80px 8%; background-color: #fff;">
+        <div style="background: #fdf2f7; border-radius: 30px; padding: 60px 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 1000px; margin: 0 auto;">
+            
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h2 style="font-family: 'Montserrat', sans-serif; font-size: 2.5rem; text-transform: uppercase;">Send an <span>Inquiry</span></h2>
+                <p style="color: #666; margin-top: 10px;">Fill in the details and we will revert back to you instantly on WhatsApp!</p>
+            </div>
+            
+            <form id="contactForm" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <label style="font-weight: 600; color: #444;">Your Name</label>
+                    <input type="text" id="custName" placeholder="Enter your full name" required 
+                        style="padding: 15px; border: 1px solid #ddd; border-radius: 10px; font-size: 1rem;">
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <label style="font-weight: 600; color: #444;">Phone Number</label>
+                    <input type="tel" id="custPhone" placeholder="Enter your mobile number" required 
+                        style="padding: 15px; border: 1px solid #ddd; border-radius: 10px; font-size: 1rem;">
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <label style="font-weight: 600; color: #444;">Event Type</label>
+                    <select id="eventType" required style="padding: 15px; border: 1px solid #ddd; border-radius: 10px; font-size: 1rem; background: white;">
+                        <option value="">Select Event Type</option>
+                        <option value="Birthday Party">Birthday Party</option>
+                        <option value="Wedding / Engagement">Wedding / Engagement</option>
+                        <option value="Baby Shower">Baby Shower</option>
+                        <option value="Corporate Event">Corporate Event</option>
+                        <option value="Other">Other Celebration</option>
+                    </select>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <label style="font-weight: 600; color: #444;">Event Date</label>
+                    <input type="date" id="eventDate" required style="padding: 15px; border: 1px solid #ddd; border-radius: 10px; font-size: 1rem;">
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 8px; grid-column: 1 / -1;">
+                    <label style="font-weight: 600; color: #444;">Your Requirements / Location</label>
+                    <textarea id="custMessage" rows="4" placeholder="Tell us about your dream decoration and location..." 
+                        style="padding: 15px; border: 1px solid #ddd; border-radius: 10px; font-size: 1rem; font-family: inherit; resize: vertical;"></textarea>
+                </div>
+                <button type="submit" 
+                    style="grid-column: 1 / -1; padding: 18px; border-radius: 10px; background: #ff4d8d; color: white; border: none; font-weight: 700; font-size: 1.1rem; cursor: pointer; text-transform: uppercase; transition: 0.3s; margin-top: 10px; box-shadow: 0 10px 20px rgba(255, 77, 141, 0.3);">
+                    Submit Inquiry to WhatsApp
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="footer-grid">
+            <div>
+                <a href="#" class="footer-logo">THE PERFECT <span>DECORATOR</span></a>
+                <p style="margin-top:20px; color:#999;">Bringing professional event styling to your doorstep. We turn ordinary spaces into extraordinary memories.</p>
+                <div style="display:flex; gap:15px; margin-top:30px;">
+                    <a href="#" style="color:white; font-size:1.5rem;"><i class="fab fa-facebook"></i></a>
+                    <a href="#" style="color:white; font-size:1.5rem;"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/919038581201" style="color:white; font-size:1.5rem;"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div>
+                <h4 class="footer-heading">Navigate</h4>
+                <ul class="footer-links">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Our Story</a></li>
+                    <li><a href="#services">Our Portfolio</a></li>
+                    <li><a href="#packages">Pricing Plans</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-heading">Services</h4>
+                <ul class="footer-links">
+                    <li><a href="#services">Birthday Parties</a></li>
+                    <li><a href="#services">Wedding Gala</a></li>
+                    <li><a href="#services">Baby Shower</a></li>
+                    <li><a href="#services">Corporate Events</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="footer-heading">Direct Contact</h4>
+                <ul class="contact-list">
+                    <li><i class="fas fa-map-marker-alt"></i> Howrah, West Bengal, India</li>
+                    <li><i class="fas fa-phone-alt"></i> +91 9038581201</li>
+                    <li><i class="fas fa-envelope"></i> inquiry@perfectdecorator.com</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 The Perfect Decorator. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const balloonBox = document.getElementById('balloonBox');
+        const colors = ['#ff4d8d', '#a2d2ff', '#ffcf40', '#b388ff', '#ffd1dc'];
+        function createBalloon() {
+            const balloon = document.createElement('div');
+            balloon.className = 'balloon-anim';
+            const size = Math.random() * 20 + 20;
+            balloon.style.width = size + 'px';
+            balloon.style.height = (size * 1.3) + 'px';
+            balloon.style.left = Math.random() * 100 + 'vw';
+            balloon.style.animationDuration = (Math.random() * 8 + 8) + 's';
+            balloon.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            balloonBox.appendChild(balloon);
+            setTimeout(() => { balloon.remove(); }, 16000);
+        }
+        setInterval(createBalloon, 800);
+
+        function sendWhatsApp(type) {
+            const msg = encodeURIComponent(`Hi! I'm interested in the ${type} from The Perfect Decorator. Please share more details.`);
+            window.open(`https://wa.me/919038581201?text=${msg}`, '_blank');
+        }
+
+        // Form Submission Logic
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('custName').value;
+            const phone = document.getElementById('custPhone').value;
+            const type = document.getElementById('eventType').value;
+            const date = document.getElementById('eventDate').value;
+            const msg = document.getElementById('custMessage').value;
+
+            const whatsappMessage = `*New Decoration Inquiry*%0A%0A` +
+                `*Name:* ${name}%0A` +
+                `*Phone:* ${phone}%0A` +
+                `*Event:* ${type}%0A` +
+                `*Date:* ${date}%0A` +
+                `*Requirements:* ${msg}`;
+
+            window.open(`https://wa.me/919038581201?text=${whatsappMessage}`, '_blank');
+        });
+    </script>
+</body>
+</html>
